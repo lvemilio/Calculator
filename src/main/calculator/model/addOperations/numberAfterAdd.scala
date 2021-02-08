@@ -2,6 +2,7 @@ package calculator.model.addOperations
 
 import calculator.model.{CalcState, Calculator}
 import calculator.model.NumberEntering.{decimalPressed, numberPressed}
+import calculator.model.subtractOperations._
 
 class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
 
@@ -12,6 +13,7 @@ class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
   override def clearPressed(): Unit = {
     calculator.firstNum = 0
     calculator.secondNum = 0
+    calculator.state = new numberPressed(calculator)
   }
 
   override def numberPressed(number: Int): Unit = {
@@ -27,7 +29,7 @@ class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
     // TODO
   }
   override def subtractPressed(): Unit = {
-    // TODO
+    calculator.state = new subtractPressed(calculator)
   }
 
   override def addPressed(): Unit = {
@@ -36,11 +38,10 @@ class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
 
   override def equalsPressed(): Unit = {
     calculator.firstNum = calculator.firstNum + calculator.secondNum
-    calculator.secondNum = 0
-    calculator.state = new numberPressed(calculator)
+    calculator.state = new EqualsAfterAdd(calculator)
   }
 
   override def decimalPressed(): Unit = {
-    calculator.state = new decimalPressed(calculator)
+    calculator.state = new decimalAfterAdd(calculator)
   }
 }

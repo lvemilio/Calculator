@@ -2,6 +2,7 @@ package calculator.model.NumberEntering
 
 import calculator.model.addOperations.addPressed
 import calculator.model.{CalcState, Calculator}
+import calculator.model.subtractOperations._
 
 class decimalPressed(calculator: Calculator) extends CalcState(calculator) {
   override def displayNumber(): Double = {
@@ -10,6 +11,8 @@ class decimalPressed(calculator: Calculator) extends CalcState(calculator) {
 
   override def clearPressed(): Unit = {
     calculator.firstNum = 0
+    calculator.secondNum = 0
+    calculator.state = new numberPressed(calculator)
   }
 
   override def numberPressed(number: Int): Unit = {
@@ -26,7 +29,7 @@ class decimalPressed(calculator: Calculator) extends CalcState(calculator) {
 
   }
   def subtractPressed(): Unit = {
-    // TODO
+    calculator.state = new subtractPressed(calculator)
   }
 
   def addPressed(): Unit = {

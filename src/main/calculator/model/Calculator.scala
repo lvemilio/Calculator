@@ -32,7 +32,7 @@ class Calculator() {
   }
 
   def subtractPressed(): Unit = {
-    // TODO
+    this.state.subtractPressed()
   }
 
   def addPressed(): Unit = {

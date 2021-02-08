@@ -1,10 +1,9 @@
 package calculator.model.NumberEntering
 
-import calculator.model.addOperations.addPressed
 import calculator.model.{CalcState, Calculator}
+import calculator.model.addOperations.addPressed
 import calculator.model.subtractOperations._
-
-class numberPressed (calculator: Calculator) extends CalcState(calculator) {
+class numberAfterInitialSubtract (calculator: Calculator) extends CalcState(calculator) {
 
   override def displayNumber(): Double = {
     calculator.firstNum
@@ -17,7 +16,9 @@ class numberPressed (calculator: Calculator) extends CalcState(calculator) {
 
   override def numberPressed(number: Int): Unit = {
     var pressedNr:String = number.toString
-    calculator.firstNum = (calculator.firstNum.toInt.toString+pressedNr).toDouble
+    var currentNum:Int = calculator.firstNum.abs.toInt
+    println(currentNum)
+    calculator.firstNum = ("-"+ currentNum.toString + pressedNr).toDouble
   }
 
   override def dividePressed(): Unit = {
@@ -28,8 +29,7 @@ class numberPressed (calculator: Calculator) extends CalcState(calculator) {
     // TODO
   }
   override def subtractPressed(): Unit = {
-    calculator.firstNum = ("-"+calculator.firstNum.toString).toDouble
-    calculator.state = new numberAfterInitialSubtract(calculator)
+    calculator.state = new subtractPressed(calculator)
 
   }
 

@@ -1,10 +1,10 @@
-package calculator.model.addOperations
+package calculator.model.subtractOperations
 
 import calculator.model.{CalcState, Calculator}
-import calculator.model.NumberEntering.numberPressed
-import calculator.model.subtractOperations._
+import calculator.model.NumberEntering.{decimalPressed, numberPressed}
+import calculator.model.addOperations.{EqualsAfterAdd, addPressed}
 
-class numberAfterDecimalAdd (calculator: Calculator) extends CalcState(calculator) {
+class numberAfterSubtract (calculator: Calculator) extends CalcState(calculator) {
 
   override def displayNumber(): Double = {
     calculator.secondNum
@@ -12,14 +12,13 @@ class numberAfterDecimalAdd (calculator: Calculator) extends CalcState(calculato
 
   override def clearPressed(): Unit = {
     calculator.firstNum = 0
-    calculator.firstNum = 0
+    calculator.secondNum = 0
     calculator.state = new numberPressed(calculator)
   }
 
   override def numberPressed(number: Int): Unit = {
     var pressedNr:String = number.toString
-    calculator.secondNum = (calculator.secondNum.toString+pressedNr).toDouble
-
+    calculator.secondNum = (calculator.secondNum.toInt.toString+pressedNr).toDouble
   }
 
   override def dividePressed(): Unit = {
@@ -30,7 +29,7 @@ class numberAfterDecimalAdd (calculator: Calculator) extends CalcState(calculato
     // TODO
   }
   override def subtractPressed(): Unit = {
-    calculator.state = new subtractPressed(calculator)
+    // TODO
   }
 
   override def addPressed(): Unit = {
@@ -38,11 +37,11 @@ class numberAfterDecimalAdd (calculator: Calculator) extends CalcState(calculato
   }
 
   override def equalsPressed(): Unit = {
-    calculator.firstNum = calculator.firstNum + calculator.secondNum
-    calculator.state = new EqualsAfterAdd(calculator)
+    calculator.firstNum = calculator.firstNum - calculator.secondNum
+    calculator.state = new EqualsAfterSubtract(calculator)
   }
 
   override def decimalPressed(): Unit = {
-    // TODO
+    calculator.state = new decimalAfterSubtract(calculator)
   }
 }

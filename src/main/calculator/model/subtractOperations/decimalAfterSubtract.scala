@@ -1,10 +1,10 @@
-package calculator.model.addOperations
+package calculator.model.subtractOperations
 
-import calculator.model.NumberEntering.{numberAfterDecimal, numberPressed}
 import calculator.model.{CalcState, Calculator}
-import calculator.model.subtractOperations._
+import calculator.model.NumberEntering.numberPressed
+import calculator.model.addOperations.{addPressed, numberAfterDecimalAdd}
 
-class decimalAfterAdd (calculator: Calculator) extends CalcState(calculator) {
+class decimalAfterSubtract (calculator: Calculator) extends CalcState(calculator) {
   override def displayNumber(): Double = {
     calculator.secondNum
   }
@@ -18,7 +18,7 @@ class decimalAfterAdd (calculator: Calculator) extends CalcState(calculator) {
   override def numberPressed(number: Int): Unit = {
     var pressedNr:String = number.toString
     calculator.secondNum = (calculator.secondNum.toInt.toString + "." + pressedNr).toDouble
-    calculator.state = new numberAfterDecimalAdd(calculator)
+    calculator.state = new numberAfterDecimalSubtract(calculator)
   }
 
   override def dividePressed(): Unit = {
@@ -29,7 +29,6 @@ class decimalAfterAdd (calculator: Calculator) extends CalcState(calculator) {
 
   }
   def subtractPressed(): Unit = {
-    calculator.state = new subtractPressed(calculator)
   }
 
   def addPressed(): Unit = {
@@ -37,10 +36,8 @@ class decimalAfterAdd (calculator: Calculator) extends CalcState(calculator) {
   }
 
   def equalsPressed(): Unit = {
-
   }
 
   def decimalPressed(): Unit = {
-    // TODO
   }
 }
