@@ -2,12 +2,14 @@ package calculator.model
 import calculator.view.CalculatorButton
 import calculator.controller
 import calculator.controller.NumberAction
-import calculator.model.NumberEntering.numberPressed
+import calculator.model.NumberEntering._
 import scalafx.scene.control.TextField
 
 class Calculator() {
   // Accessed by View. You should edit this method as you build functionality
-  var state:CalcState = new numberPressed(this)
+  var state:CalcState = new initialState(this)
+  var firstString:String = ""
+  var secondString:String = ""
   var firstNum:Double = 0
   var secondNum:Double = 0
 
@@ -24,11 +26,11 @@ class Calculator() {
   }
 
   def dividePressed(): Unit = {
-    // TODO
+    this.state.dividePressed()
   }
 
   def multiplyPressed(): Unit = {
-    // TODO
+    this.state.multiplyPressed()
   }
 
   def subtractPressed(): Unit = {

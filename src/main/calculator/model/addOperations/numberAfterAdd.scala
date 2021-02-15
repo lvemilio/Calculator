@@ -1,9 +1,10 @@
 package calculator.model.addOperations
 
 import calculator.model.{CalcState, Calculator}
-import calculator.model.NumberEntering.{decimalPressed, numberPressed}
+import calculator.model.NumberEntering.{decimalPressed, initialState, numberPressed}
+import calculator.model.dividePressed.dividePressed
 import calculator.model.subtractOperations._
-
+import calculator.model.multiplyPressed._
 class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
 
   override def displayNumber(): Double = {
@@ -13,7 +14,7 @@ class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
   override def clearPressed(): Unit = {
     calculator.firstNum = 0
     calculator.secondNum = 0
-    calculator.state = new numberPressed(calculator)
+    calculator.state = new initialState(calculator)
   }
 
   override def numberPressed(number: Int): Unit = {
@@ -22,17 +23,25 @@ class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
   }
 
   override def dividePressed(): Unit = {
-    // TODO
+    calculator.firstNum += calculator.secondNum
+    calculator.secondNum = 0
+    calculator.state = new dividePressed(calculator)
   }
 
   override def multiplyPressed(): Unit = {
-    // TODO
+    calculator.firstNum += calculator.secondNum
+    calculator.secondNum = 0
+    calculator.state = new multiplyPressed(calculator)
   }
   override def subtractPressed(): Unit = {
+    calculator.firstNum += calculator.secondNum
+    calculator.secondNum = 0
     calculator.state = new subtractPressed(calculator)
   }
 
   override def addPressed(): Unit = {
+    calculator.firstNum += calculator.secondNum
+    calculator.secondNum = 0
     calculator.state = new addPressed(calculator)
   }
 
@@ -42,6 +51,7 @@ class numberAfterAdd (calculator: Calculator) extends CalcState(calculator) {
   }
 
   override def decimalPressed(): Unit = {
-    calculator.state = new decimalAfterAdd(calculator)
+    calculator.secondString = calculator.secondNum.toString
+    calculator.state = new decimalAfterNumberAdd(calculator)
   }
 }

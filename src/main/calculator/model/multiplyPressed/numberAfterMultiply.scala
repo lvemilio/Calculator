@@ -1,11 +1,12 @@
-package calculator.model.subtractOperations
+package calculator.model.multiplyPressed
 
 import calculator.model.{CalcState, Calculator}
-import calculator.model.NumberEntering.{decimalPressed, initialState, numberPressed}
-import calculator.model.addOperations.{EqualsAfterAdd, addPressed}
+import calculator.model.NumberEntering.{initialState, numberPressed}
+import calculator.model.addOperations.{EqualsAfterAdd, addPressed, decimalAfterAdd}
 import calculator.model.dividePressed.dividePressed
-import calculator.model.multiplyPressed._
-class numberAfterSubtract (calculator: Calculator) extends CalcState(calculator) {
+import calculator.model.subtractOperations.subtractPressed
+
+class numberAfterMultiply (calculator: Calculator) extends CalcState(calculator) {
 
   override def displayNumber(): Double = {
     calculator.secondNum
@@ -23,35 +24,35 @@ class numberAfterSubtract (calculator: Calculator) extends CalcState(calculator)
   }
 
   override def dividePressed(): Unit = {
-    calculator.firstNum-=calculator.secondNum
+    calculator.firstNum *= calculator.secondNum
     calculator.secondNum = 0
     calculator.state = new dividePressed(calculator)
   }
 
   override def multiplyPressed(): Unit = {
-    calculator.firstNum-=calculator.secondNum
+    calculator.firstNum *= calculator.secondNum
     calculator.secondNum = 0
     calculator.state = new multiplyPressed(calculator)
   }
   override def subtractPressed(): Unit = {
-    calculator.firstNum-=calculator.secondNum
+    calculator.firstNum *= calculator.secondNum
     calculator.secondNum = 0
     calculator.state = new subtractPressed(calculator)
   }
 
   override def addPressed(): Unit = {
-    calculator.firstNum-=calculator.secondNum
+    calculator.firstNum *= calculator.secondNum
     calculator.secondNum = 0
     calculator.state = new addPressed(calculator)
   }
 
   override def equalsPressed(): Unit = {
-    calculator.firstNum = calculator.firstNum - calculator.secondNum
-    calculator.state = new EqualsAfterSubtract(calculator)
+    calculator.firstNum = calculator.firstNum * calculator.secondNum
+    calculator.state = new EqualsAfterMultiply(calculator)
   }
 
   override def decimalPressed(): Unit = {
     calculator.secondString = calculator.secondNum.toString
-    calculator.state = new decimalAfterNumberSubtract(calculator)
+    calculator.state = new decimalAfterNumberMultiply(calculator)
   }
 }
